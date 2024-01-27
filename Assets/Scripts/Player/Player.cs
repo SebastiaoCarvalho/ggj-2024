@@ -5,11 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float _hp = 10f;
-    private float _damage = 1f;
-
-    public float Damage {
-        get { return _damage; }
-    }
     
     // Start is called before the first frame update
     void Start()
@@ -24,8 +19,8 @@ public class Player : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.CompareTag("Player")) {
-            _hp -= other.gameObject.GetComponent<Player>().Damage;
+        if (other.gameObject.CompareTag("Attack")) {
+            _hp -= other.gameObject.GetComponent<Attack>().Damage;
             Debug.Log("Player HP: " + _hp);
         }
     }

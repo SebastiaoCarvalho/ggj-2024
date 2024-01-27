@@ -36,8 +36,6 @@ public class CameraManager : MonoBehaviour
         double height = diagonal * _startHeight / _startDiagonal;
         if (midpoint.z - (float) height > _maxZ)
             return;
-        Debug.Log(midpoint.z - (float) height);
         this.gameObject.transform.position = new Vector3(midpoint.x, midpoint.y, midpoint.z - (float) height);
-        Debug.Log("Camera position: " + this.gameObject.transform.position);
     }
 }

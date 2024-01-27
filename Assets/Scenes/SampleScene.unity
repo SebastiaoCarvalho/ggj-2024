@@ -322,6 +322,10 @@ PrefabInstance:
       propertyPath: m_UIInputModule
       value: 
       objectReference: {fileID: 361388107}
+    - target: {fileID: 8034807619039064760, guid: 96703197cf2bddf43b68e02593fd50cf, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 6072689511428600640, guid: ed3fa9b84beb3e543a0bc51d15aef9b4, type: 3}
     - target: {fileID: 8433936477698028647, guid: 96703197cf2bddf43b68e02593fd50cf, type: 3}
       propertyPath: MoveSpeed
       value: 5

@@ -34,7 +34,7 @@ public class Movement : MonoBehaviour
     private void FixedUpdate() {
         if (Moving)  {
             rb.velocity = new Vector2(Direction.x * MoveSpeed, rb.velocity.y);
-            Debug.Log(rb.velocity);
+            /* Debug.Log(rb.velocity); */
         }
         else
             rb.velocity = new Vector2(0, rb.velocity.y);

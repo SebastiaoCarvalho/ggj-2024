@@ -9,6 +9,7 @@ public class Abilities : MonoBehaviour
     bool Dashing = false;
     bool Projectiling = false;
     bool Punching = false;
+    public GameObject _projectilePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,8 @@ public class Abilities : MonoBehaviour
         if (!context.started) return;
         Projectiling = true;
         Debug.Log("Twerk");
+        // throw projectile
+        GameObject projectile = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);   
     }
 
     public void Punch(InputAction.CallbackContext context) {
