@@ -28,6 +28,7 @@ public class Attack : MonoBehaviour
 
             if (damageable != null) {
                 Vector2 knockback = new Vector2(KnockbackStrengthX * mv.FacingDirection, KnockbackStrengthY);
+                knockback *= 1 + (damageable.HP * 0.5f);
                 damageable.Hit(Damage, knockback);
                 Debug.Log("Damage");
             }

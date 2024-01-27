@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
-    bool IsInvincible = false;
     float Health = 0f;
 
     public float HP {
         get { return Health; }
+        set { Health = value; }
     }
     Movement mv;
 
@@ -24,10 +24,12 @@ public class Damageable : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update() {}
+    private void Update() {
+    }
 
     public void Hit(int damage, Vector2 knockback) {
-        if (!IsInvincible) {
+        bool isInvincible = GetComponent<Abilities>().Blocking || GetComponent<Abilities>().Dashing;
+        if (!isInvincible) {
             Health += damage;
             this.gameObject.GetComponent<Player>().TakeDamage(damage);
             mv.Knockback(knockback);

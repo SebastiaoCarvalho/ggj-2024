@@ -11,7 +11,7 @@ public class Abilities : MonoBehaviour
     public float ProjectileCooldown = 0.5f;
     public float CurrentProjectileCooldown = 0;
 
-    bool Blocking = false;
+    public bool Blocking = false;
     public bool Dashing = false;
     bool Projectiling = false;
     bool Punching = false;
@@ -20,6 +20,7 @@ public class Abilities : MonoBehaviour
     Rigidbody rb;
     Movement mv;
     Attack attack;
+    Damageable damageable;
 
     Attack DashAttack;
     Attack PunchAttack;
@@ -28,6 +29,7 @@ public class Abilities : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         mv = GetComponent<Movement>();
+        damageable = GetComponent<Damageable>();
         PunchAttack = transform.GetChild(0).GetComponent<Attack>();
         DashAttack = transform.GetChild(1).GetComponent<Attack>();
     }
@@ -35,7 +37,7 @@ public class Abilities : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

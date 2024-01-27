@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         _lives--;
         transform.position = _startPosition;
         _hp = 0f;
+        GetComponent<Damageable>().HP = 0f;
     }
 
 }

@@ -19,6 +19,8 @@ public class Projectile : Attack
         this.transform.Translate(Speed * Time.deltaTime * Direction);
     }
 
+    private void OnTriggerStay(Collider collision) {} // do nothing
+
     private void OnTriggerEnter(Collider collision) {
         Debug.Log("Player Triggered");
         if (collision.gameObject.CompareTag("Player")) {
@@ -27,6 +29,8 @@ public class Projectile : Attack
 
             if (damageable != null) {
                 Vector2 knockback = new Vector2(Direction.x * KnockbackStrengthX, KnockbackStrengthY);
+                knockback *= 1 + (damageable.HP * 1f);
+                Debug.Log("Knockback: " + knockback);
                 damageable.Hit(Damage, knockback);
                 Debug.Log("Damage");
             }
