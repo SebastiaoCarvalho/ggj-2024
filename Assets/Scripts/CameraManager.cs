@@ -34,7 +34,7 @@ public class CameraManager : MonoBehaviour
         Vector3 midpoint = (_players[0].transform.position + _players[1].transform.position) / 2;
 
         //Move z to keep the camera with the same ratio
-        double diagonal = Math.Sqrt(Math.Pow(_players[0].transform.position.x - midpoint.x, 2) + Math.Pow(_players[0].transform.position.y - midpoint.y, 2));
+        double diagonal = Math.Sqrt(Math.Pow(_players[0].transform.position.x - midpoint.x, 2));
         double height = diagonal * _startHeight / _startDiagonal;
         if (midpoint.z - (float) height > _maxZ)
             return;
