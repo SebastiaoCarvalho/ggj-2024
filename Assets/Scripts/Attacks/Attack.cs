@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    public float Damage = 1f;
-    public float Speed = 1f;
+    public int Damage = 1;
+    public float KnockbackStrengthX = 1f;
+    public float KnockbackStrengthY = 1f;
+    public bool Attacking = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +18,19 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.Translate(Vector3.right * Speed * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        if (Attacking && collision.gameObject.CompareTag("Player")) {
+            Damageable damageable = collision.gameObject.GetComponent<Damageable>();
+            Movement mv = collision.gameObject.GetComponent<Movement>();
+
+            if (damageable != null) {
+                Vector2 knockback = new Vector2(KnockbackStrengthX, KnockbackStrengthY);
+                knockback = Vector2.Scale(knockback, new Vector2(mv.FacingDirection, 1));
+                damageable.Hit(Damage, knockback);
+                Debug.Log("Damage");
+            }
+        }
     }
 }

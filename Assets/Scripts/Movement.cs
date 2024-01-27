@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     public bool Moving = false;
     bool Jumping = false;
     bool IsGrounded = false;
+    bool CanMove = true;
     public float FacingDirection = 1f;
     Vector2 Direction = Vector2.zero;
     Rigidbody rb;
@@ -41,7 +42,7 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(Direction.x * MoveSpeed, rb.velocity.y);
             /* Debug.Log(rb.velocity); */
         }
-        else
+        else if (CanMove)
             rb.velocity = new Vector2(0, rb.velocity.y);
     }
 
@@ -62,12 +63,24 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, Impulse);
     }
 
+    public void Knockback(Vector2 knockback) {
+        CanMove = false;
+        rb.velocity = new Vector2(knockback.x + rb.velocity.x, knockback.y + Impulse);
+
+        Invoke("EndKnockback", 0.3f);
+        Debug.Log("End knockback");
+    }
+
+    private void EndKnockback() {
+        CanMove = true;
+        Debug.Log("End knockback");
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         // Check if the colliding object has a specific tag
         if (collision.gameObject.CompareTag("Floor"))
         {
-            Debug.Log("Colide");
             IsGrounded = true;
         }
     }
@@ -77,7 +90,6 @@ public class Movement : MonoBehaviour
         // Check if the colliding object has a specific tag
         if (collision.gameObject.CompareTag("Floor"))
         {
-            Debug.Log("Nao Colide");
             IsGrounded = false;
         }
     }

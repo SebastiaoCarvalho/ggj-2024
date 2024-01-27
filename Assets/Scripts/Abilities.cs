@@ -19,11 +19,18 @@ public class Abilities : MonoBehaviour
 
     Rigidbody rb;
     Movement mv;
+    Attack attack;
+
+    Collider PunchCollider;
+    Attack PunchAttack;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         mv = GetComponent<Movement>();
+        attack = GetComponent<Attack>();
+        PunchCollider = transform.GetChild(0).GetComponent<Collider>();
+        PunchAttack = transform.GetChild(0).GetComponent<Attack>();
     }
 
     // Start is called before the first frame update
@@ -57,6 +64,7 @@ public class Abilities : MonoBehaviour
     public void Dash(InputAction.CallbackContext context) {
         if (!context.started || AbilityBeingUsed() || CurrentDashCooldown > 0) return;
         Dashing = true;
+        attack.Attacking = true;
         
         CurrentDashCooldown = DashCooldown;
         rb.velocity = new Vector2(DashImpulse * mv.FacingDirection, rb.velocity.y);
@@ -67,6 +75,7 @@ public class Abilities : MonoBehaviour
 
     private void EndDash() {
         Dashing = false;
+        attack.Attacking = false;
         Debug.Log("End Dash");
     }
 
@@ -80,11 +89,16 @@ public class Abilities : MonoBehaviour
     public void Punch(InputAction.CallbackContext context) {
         if (!context.started || AbilityBeingUsed()) return;
         Punching = true;
-        Invoke("EndPunch", 0.5f);
+        PunchAttack.Attacking = true;
+        PunchCollider.enabled = true;
+
+        Invoke("EndPunch", 5f);
         Debug.Log("Punch");
     }
 
     private void EndPunch() {
+        PunchCollider.enabled = false;
+        PunchAttack.Attacking = false;
         Punching = false;
         Debug.Log("End Punch");
     }
