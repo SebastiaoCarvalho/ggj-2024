@@ -17,6 +17,9 @@ public class Movement : MonoBehaviour
     Rigidbody rb;
     Abilities ab;
 
+    public bool IsKnockbacked { get; private set; }
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -42,6 +45,9 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(Direction.x * MoveSpeed, rb.velocity.y);
             /* Debug.Log(rb.velocity); */
         }
+        else if (IsKnockbacked) {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+        }
         else if (CanMove)
             rb.velocity = new Vector2(0, rb.velocity.y);
     }
@@ -51,7 +57,10 @@ public class Movement : MonoBehaviour
         if (!context.started) return;
         Moving = true;
         Direction = context.ReadValue<Vector2>();
-        FacingDirection = Direction.x;
+        if (Direction.x != FacingDirection) {
+            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            FacingDirection = Direction.x;
+        }
         Debug.Log(Direction);
     }
 
@@ -66,7 +75,7 @@ public class Movement : MonoBehaviour
     public void Knockback(Vector2 knockback) {
         CanMove = false;
         rb.velocity = new Vector2(knockback.x + rb.velocity.x, knockback.y + Impulse);
-
+        IsKnockbacked = true;
         Invoke("EndKnockback", 0.3f);
         Debug.Log("End knockback");
     }
@@ -82,6 +91,7 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.CompareTag("Floor"))
         {
             IsGrounded = true;
+            IsKnockbacked = false;
         }
     }
 

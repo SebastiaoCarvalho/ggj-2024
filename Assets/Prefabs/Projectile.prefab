@@ -147,5 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
-  Speed: 5
+  KnockbackStrengthX: 1
+  KnockbackStrengthY: 0.1
+  Attacking: 0
   Direction: {x: 1, y: 0, z: 0}
+  Speed: 5

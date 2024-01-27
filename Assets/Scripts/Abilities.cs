@@ -8,10 +8,10 @@ public class Abilities : MonoBehaviour
     public float DashCooldown = 5.0f;
     public float CurrentDashCooldown = 0;
     public float DashImpulse = 20f;
-    public float ProjectileCooldown = 1.5f;
+    public float ProjectileCooldown = 0.5f;
     public float CurrentProjectileCooldown = 0;
 
-    bool Blocking = false;
+    public bool Blocking = false;
     public bool Dashing = false;
     bool Projectiling = false;
     bool Punching = false;
@@ -20,23 +20,24 @@ public class Abilities : MonoBehaviour
     Rigidbody rb;
     Movement mv;
     Attack attack;
+    Damageable damageable;
 
-    Collider PunchCollider;
+    Attack DashAttack;
     Attack PunchAttack;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         mv = GetComponent<Movement>();
-        attack = GetComponent<Attack>();
-        PunchCollider = transform.GetChild(0).GetComponent<Collider>();
+        damageable = GetComponent<Damageable>();
         PunchAttack = transform.GetChild(0).GetComponent<Attack>();
+        DashAttack = transform.GetChild(1).GetComponent<Attack>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -47,7 +48,9 @@ public class Abilities : MonoBehaviour
 
         if (Projectiling && CurrentProjectileCooldown <= 0) {
             // throw projectile
-            GameObject projectile = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+            Vector3 offset = new Vector3(2 * mv.FacingDirection, 0, 0);
+            GameObject projectile = Instantiate(_projectilePrefab, transform.position + offset, Quaternion.identity);
+            projectile.GetComponent<Projectile>().Direction = new Vector3(mv.FacingDirection, 0, 0);
             CurrentProjectileCooldown = ProjectileCooldown;
         }
         else if (CurrentProjectileCooldown > 0)
@@ -64,7 +67,7 @@ public class Abilities : MonoBehaviour
     public void Dash(InputAction.CallbackContext context) {
         if (!context.started || AbilityBeingUsed() || CurrentDashCooldown > 0) return;
         Dashing = true;
-        attack.Attacking = true;
+        DashAttack.Attacking = true;
         
         CurrentDashCooldown = DashCooldown;
         rb.velocity = new Vector2(DashImpulse * mv.FacingDirection, rb.velocity.y);
@@ -75,7 +78,7 @@ public class Abilities : MonoBehaviour
 
     private void EndDash() {
         Dashing = false;
-        attack.Attacking = false;
+        DashAttack.Attacking = false;
         Debug.Log("End Dash");
     }
 
@@ -84,25 +87,19 @@ public class Abilities : MonoBehaviour
         if (!context.started || AbilityBeingUsed()) return;
         Projectiling = true;
         Debug.Log(transform.rotation);
-        Vector3 offset = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up) * new Vector3(2, 0, 0);
         Debug.Log("Twerk");
-        // throw projectile
-        GameObject projectile = Instantiate(_projectilePrefab, transform.position + offset, Quaternion.identity);
-        projectile.GetComponent<Projectile>().Direction = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up) * Vector3.right;
     }
 
     public void Punch(InputAction.CallbackContext context) {
         if (!context.started || AbilityBeingUsed()) return;
         Punching = true;
         PunchAttack.Attacking = true;
-        PunchCollider.enabled = true;
 
-        Invoke("EndPunch", 5f);
+        Invoke("EndPunch", 0.3f);
         Debug.Log("Punch");
     }
 
     private void EndPunch() {
-        PunchCollider.enabled = false;
         PunchAttack.Attacking = false;
         Punching = false;
         Debug.Log("End Punch");

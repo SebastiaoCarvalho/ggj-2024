@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     private int _lives = 3;
     private float _lerpSpeed;
 
+    public float HP {
+        get { return _hp; }
+    }
+
     public int Lives {
         get { return _lives; }
     }
@@ -65,13 +69,7 @@ public class Player : MonoBehaviour
         _lives--;
         transform.position = _startPosition;
         _hp = 0f;
+        GetComponent<Damageable>().HP = 0f;
     }
 
-    private void OnCollisionEnter(Collision other) {
-        Debug.Log("Player Collided");
-        if (other.gameObject.CompareTag("Attack")) {
-            TakeDamage(other.gameObject.GetComponent<Attack>().Damage);
-            Destroy(other.gameObject);
-        }
-    }
 }
