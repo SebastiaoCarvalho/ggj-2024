@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 5301397022731417539}
   - component: {fileID: 8198209907494099013}
   - component: {fileID: 5317357926650588169}
-  - component: {fileID: 1001241823909175096}
+  - component: {fileID: 5173351850244110666}
+  - component: {fileID: 1483274592163912020}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -341,6 +342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 1
   Impulse: 0.5
+  Moving: 0
+  FacingDirection: 1
 --- !u!114 &5317357926650588169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,8 +356,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f0f91de14f1e4388ae358acc76fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DashCooldown: 5
+  CurrentDashCooldown: 0
+  DashImpulse: 20
+  ProjectileCooldown: 1.5
+  CurrentProjectileCooldown: 0
+  Dashing: 0
   _projectilePrefab: {fileID: 0}
---- !u!114 &1001241823909175096
+--- !u!114 &5173351850244110666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,7 +372,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750675764635332208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd655a8dd09de048844203f1e6279e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 900c1af7993ff6240a950ce43cbaa579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 1
+  KnockbackStrengthX: 1
+  KnockbackStrengthY: 1
+  Attacking: 0
+--- !u!114 &1483274592163912020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750675764635332208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 659d6db1f3275094280de04a3ca05e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5326096386115492550

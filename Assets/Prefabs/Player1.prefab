@@ -32,6 +32,78 @@ Transform:
   - {fileID: 4571556443519132445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3828621375541476264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8251787396066753487}
+  - component: {fileID: 213741906884339308}
+  - component: {fileID: 1316372450756076672}
+  m_Layer: 0
+  m_Name: Punch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8251787396066753487
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828621375541476264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4571556443519132445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &213741906884339308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828621375541476264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900c1af7993ff6240a950ce43cbaa579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 1
+  KnockbackStrengthX: 1
+  KnockbackStrengthY: 1
+  Attacking: 0
+--- !u!136 &1316372450756076672
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828621375541476264}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.20339304
+  m_Height: 0.6840842
+  m_Direction: 0
+  m_Center: {x: 0.9248067, y: 0, z: 0}
 --- !u!1 &7779641541665842106
 GameObject:
   m_ObjectHideFlags: 0
@@ -48,7 +120,8 @@ GameObject:
   - component: {fileID: 7945561316227405837}
   - component: {fileID: 8433936477698028647}
   - component: {fileID: 8034807619039064760}
-  - component: {fileID: 3651579525146570566}
+  - component: {fileID: 8857926085968543457}
+  - component: {fileID: 3993889487829409064}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -68,7 +141,8 @@ Transform:
   m_LocalPosition: {x: -2.85, y: -0.26896638, z: 2.9532404}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8251787396066753487}
   m_Father: {fileID: 1401971578994153743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7135578416302507434
@@ -373,6 +447,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 1
   Impulse: 0.5
+  Moving: 0
+  FacingDirection: 1
 --- !u!114 &8034807619039064760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,8 +461,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f0f91de14f1e4388ae358acc76fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DashCooldown: 5
+  CurrentDashCooldown: 0
+  DashImpulse: 20
+  ProjectileCooldown: 1.5
+  CurrentProjectileCooldown: 0
+  Dashing: 0
   _projectilePrefab: {fileID: 0}
---- !u!114 &3651579525146570566
+--- !u!114 &8857926085968543457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -395,6 +477,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7779641541665842106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd655a8dd09de048844203f1e6279e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 659d6db1f3275094280de04a3ca05e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3993889487829409064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7779641541665842106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900c1af7993ff6240a950ce43cbaa579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 1
+  KnockbackStrengthX: 1
+  KnockbackStrengthY: 1
+  Attacking: 0
