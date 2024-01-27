@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 725158511466829213}
   - component: {fileID: 7417727013446931458}
   - component: {fileID: 875428030744835332}
-  - component: {fileID: -6071042400169202572}
+  - component: {fileID: -8510148091612879203}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Attack
@@ -101,7 +101,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6071042400169202572
+--- !u!114 &-8510148091612879203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,8 +143,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6072689511428600640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 900c1af7993ff6240a950ce43cbaa579, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ea15c07c81f4fe46a84b1d42dd2e0a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
-  Speed: 1
+  Speed: 5
+  Direction: {x: 1, y: 0, z: 0}

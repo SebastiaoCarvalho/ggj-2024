@@ -83,7 +83,12 @@ public class Abilities : MonoBehaviour
         if (context.canceled) Projectiling = false;
         if (!context.started || AbilityBeingUsed()) return;
         Projectiling = true;
+        Debug.Log(transform.rotation);
+        Vector3 offset = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up) * new Vector3(2, 0, 0);
         Debug.Log("Twerk");
+        // throw projectile
+        GameObject projectile = Instantiate(_projectilePrefab, transform.position + offset, Quaternion.identity);
+        projectile.GetComponent<Projectile>().Direction = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up) * Vector3.right;
     }
 
     public void Punch(InputAction.CallbackContext context) {
