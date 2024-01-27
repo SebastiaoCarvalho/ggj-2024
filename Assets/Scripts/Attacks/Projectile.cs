@@ -5,6 +5,8 @@ using UnityEngine;
 public class Projectile : Attack
 {
     public Vector3 Direction = Vector3.right;
+    public float Speed = 5.0f;
+
     // Start is called before the first frame update
     void Start()
     {
