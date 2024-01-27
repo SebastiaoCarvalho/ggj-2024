@@ -18,10 +18,8 @@ public class Player : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.CompareTag("Attack")) {
-            _hp -= other.gameObject.GetComponent<Attack>().Damage;
-            Debug.Log("Player HP: " + _hp);
-        }
+    public void TakeDamage(float damage) {
+        _hp -= damage;
+        Debug.Log("Player HP: " + _hp);
     }
 }
