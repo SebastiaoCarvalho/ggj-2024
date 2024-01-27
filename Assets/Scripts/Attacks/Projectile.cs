@@ -19,10 +19,17 @@ public class Projectile : Attack
         this.transform.Translate(Speed * Time.deltaTime * Direction);
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider collision) {
         Debug.Log("Player Triggered");
-        if (other.gameObject.CompareTag("Player")) {
-            other.gameObject.GetComponent<Player>().TakeDamage(Damage);
+        if (collision.gameObject.CompareTag("Player")) {
+            Damageable damageable = collision.gameObject.GetComponent<Damageable>();
+            Movement mv = collision.gameObject.GetComponent<Movement>();
+
+            if (damageable != null) {
+                Vector2 knockback = new Vector2(Direction.x * KnockbackStrengthX, KnockbackStrengthY);
+                damageable.Hit(Damage, knockback);
+                Debug.Log("Damage");
+            }
             Destroy(this.gameObject);
         }
     }

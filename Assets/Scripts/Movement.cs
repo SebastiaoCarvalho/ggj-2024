@@ -51,7 +51,10 @@ public class Movement : MonoBehaviour
         if (!context.started) return;
         Moving = true;
         Direction = context.ReadValue<Vector2>();
-        FacingDirection = Direction.x;
+        if (Direction.x != FacingDirection) {
+            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            FacingDirection = Direction.x;
+        }
         Debug.Log(Direction);
     }
 
