@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         liveText.text = "x" + _lives;
         if (_hp > _maxHealth) _hp = _maxHealth;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
         HealthBarFiller();
         ColorChanger();
-    }
+    }*/
 
 
     public void HealthBarFiller()

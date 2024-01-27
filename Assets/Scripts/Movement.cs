@@ -14,8 +14,8 @@ public class Movement : MonoBehaviour
     bool CanMove = true;
     public float FacingDirection = 1f;
     Vector2 Direction = Vector2.zero;
-    Rigidbody rb;
-    Abilities ab;
+    Rigidbody[] rb;
+    Abilities[] ab;
 
     public bool IsKnockbacked { get; private set; }
 
