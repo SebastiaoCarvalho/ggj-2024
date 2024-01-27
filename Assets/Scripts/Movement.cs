@@ -14,15 +14,15 @@ public class Movement : MonoBehaviour
     bool CanMove = true;
     public float FacingDirection = 1f;
     Vector2 Direction = Vector2.zero;
-    Rigidbody[] rb;
-    Abilities[] ab;
+    List<Rigidbody> rbList = new List<Rigidbody>();
+    Abilities ab;
 
     public bool IsKnockbacked { get; private set; }
 
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        addRigidBodyToList(this.gameObject);
         ab = GetComponent<Abilities>();
     }
 
@@ -35,21 +35,31 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("Count" + rbList.Count);
+    }
+
+    void addRigidBodyToList(GameObject obj) {
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb != null) {
+            rbList.Add(rb);
+        }
+        foreach (Transform child in obj.transform) {
+            addRigidBodyToList(child.gameObject);
+        }
     }
 
     private void FixedUpdate() {
         if (ab.Dashing)
-            rb.velocity = rb.velocity;
+            rbList.ForEach(rb => rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y));
         else if (Moving)  {
-            rb.velocity = new Vector2(Direction.x * MoveSpeed, rb.velocity.y);
+            rbList.ForEach(rb => rb.velocity = new Vector2(MoveSpeed * Direction.x, rb.velocity.y));
             /* Debug.Log(rb.velocity); */
         }
         else if (IsKnockbacked) {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+            rbList.ForEach(rb => rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y));
         }
         else if (CanMove)
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rbList.ForEach(rb => rb.velocity = new Vector2(0, rb.velocity.y));
     }
 
     public void Move(InputAction.CallbackContext context) {
@@ -69,12 +79,12 @@ public class Movement : MonoBehaviour
         if (!context.started) return;
         Jumping = true;
         if (IsGrounded)
-            rb.velocity = new Vector2(rb.velocity.x, Impulse);
+            rbList.ForEach(rb => rb.velocity = new Vector2(rb.velocity.x, Impulse));
     }
 
     public void Knockback(Vector2 knockback) {
         CanMove = false;
-        rb.velocity = new Vector2(knockback.x + rb.velocity.x, knockback.y + Impulse);
+        rbList.ForEach(rb => rb.velocity = new Vector2(knockback.x, knockback.y));
         IsKnockbacked = true;
         Invoke("EndKnockback", 0.3f);
         Debug.Log("End knockback");
