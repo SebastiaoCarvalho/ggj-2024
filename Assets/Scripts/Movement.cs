@@ -8,15 +8,18 @@ public class Movement : MonoBehaviour
     public float MoveSpeed = 1f;
     public float Impulse = 4f;
 
-    bool Moving = false;
+    public bool Moving = false;
     bool Jumping = false;
-    bool IsGrounded = true;
+    bool IsGrounded = false;
+    public float FacingDirection = 1f;
     Vector2 Direction = Vector2.zero;
     Rigidbody rb;
+    Abilities ab;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        ab = GetComponent<Abilities>();
     }
 
     // Start is called before the first frame update
@@ -32,7 +35,9 @@ public class Movement : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (Moving)  {
+        if (ab.Dashing)
+            rb.velocity = rb.velocity;
+        else if (Moving)  {
             rb.velocity = new Vector2(Direction.x * MoveSpeed, rb.velocity.y);
             /* Debug.Log(rb.velocity); */
         }
@@ -45,6 +50,7 @@ public class Movement : MonoBehaviour
         if (!context.started) return;
         Moving = true;
         Direction = context.ReadValue<Vector2>();
+        FacingDirection = Direction.x;
         Debug.Log(Direction);
     }
 
@@ -54,5 +60,25 @@ public class Movement : MonoBehaviour
         Jumping = true;
         if (IsGrounded)
             rb.velocity = new Vector2(rb.velocity.x, Impulse);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Check if the colliding object has a specific tag
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            Debug.Log("Colide");
+            IsGrounded = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        // Check if the colliding object has a specific tag
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            Debug.Log("Nao Colide");
+            IsGrounded = false;
+        }
     }
 }

@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 255553795}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 429998690}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -555,6 +555,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1626837159465301220, guid: ed33b0adc04945f4899e2695eef50dda, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5301397022731417539, guid: ed33b0adc04945f4899e2695eef50dda, type: 3}
       propertyPath: m_Camera
       value: 
@@ -624,6 +628,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 572773465900513711, guid: 96703197cf2bddf43b68e02593fd50cf, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1401971578994153743, guid: 96703197cf2bddf43b68e02593fd50cf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.15722466
@@ -676,6 +684,10 @@ PrefabInstance:
       propertyPath: m_UIInputModule
       value: 
       objectReference: {fileID: 894706922}
+    - target: {fileID: 8034807619039064760, guid: 96703197cf2bddf43b68e02593fd50cf, type: 3}
+      propertyPath: DashImpulse
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8433936477698028647, guid: 96703197cf2bddf43b68e02593fd50cf, type: 3}
       propertyPath: Impulse
       value: 3
