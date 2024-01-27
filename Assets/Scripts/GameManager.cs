@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
             float width = 17.5f;
             float startX = _floor[0].transform.position.x - width;
             float endX = _floor[0].transform.position.x + width;
-            Debug.Log("StartX: " + startX + " EndX: " + endX);
             if (projectile.transform.position.x < startX || projectile.transform.position.x >  endX)
                 Destroy(projectile);
         }

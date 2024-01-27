@@ -14,7 +14,7 @@ public class Abilities : MonoBehaviour
     public bool Blocking = false;
     public bool Dashing = false;
     bool Projectiling = false;
-    bool Punching = false;
+    public bool Punching = false;
     public GameObject _projectilePrefab;
 
     Rigidbody rb;
