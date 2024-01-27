@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private float _maxHealth = 10f;
     private int _lives = 3;
     private float _lerpSpeed;
+    private float _assSize = 1f;
 
     public float HP {
         get { return _hp; }
@@ -20,6 +21,9 @@ public class Player : MonoBehaviour
 
     public int Lives {
         get { return _lives; }
+    }
+    public float AssSize {
+        get { return _assSize; }
     }
     private Vector3 _startPosition;
     
@@ -30,7 +34,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         liveText.text = "x" + _lives;
         if (_hp > _maxHealth) _hp = _maxHealth;
@@ -39,7 +43,7 @@ public class Player : MonoBehaviour
 
         HealthBarFiller();
         ColorChanger();
-    }
+    }*/
 
 
     public void HealthBarFiller()

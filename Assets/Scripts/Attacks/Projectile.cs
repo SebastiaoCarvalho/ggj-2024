@@ -6,6 +6,7 @@ public class Projectile : Attack
 {
     public Vector3 Direction = Vector3.right;
     public float Speed = 5.0f;
+    public float Intensity = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class Projectile : Attack
 
             if (damageable != null) {
                 Vector2 knockback = new Vector2(Direction.x * KnockbackStrengthX, KnockbackStrengthY);
-                knockback *= 1 + (damageable.HP * 1f);
+                knockback *= 1 + (damageable.HP * Intensity);
                 Debug.Log("Knockback: " + knockback);
                 damageable.Hit(Damage, knockback);
                 Debug.Log("Damage");

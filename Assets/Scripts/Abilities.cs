@@ -14,7 +14,7 @@ public class Abilities : MonoBehaviour
     public bool Blocking = false;
     public bool Dashing = false;
     bool Projectiling = false;
-    bool Punching = false;
+    public bool Punching = false;
     public GameObject _projectilePrefab;
 
     Rigidbody rb;
@@ -30,8 +30,8 @@ public class Abilities : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         mv = GetComponent<Movement>();
         damageable = GetComponent<Damageable>();
-        PunchAttack = transform.GetChild(0).GetComponent<Attack>();
-        DashAttack = transform.GetChild(1).GetComponent<Attack>();
+        /* PunchAttack = transform.GetChild(0).GetComponent<Attack>();
+        DashAttack = transform.GetChild(1).GetComponent<Attack>(); */
     }
 
     // Start is called before the first frame update
