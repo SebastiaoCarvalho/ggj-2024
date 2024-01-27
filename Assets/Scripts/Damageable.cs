@@ -7,6 +7,9 @@ public class Damageable : MonoBehaviour
     bool IsInvincible = false;
     float Health = 0f;
 
+    public float HP {
+        get { return Health; }
+    }
     Movement mv;
 
     private void Awake()
@@ -26,7 +29,7 @@ public class Damageable : MonoBehaviour
     public void Hit(int damage, Vector2 knockback) {
         if (!IsInvincible) {
             Health += damage;
-
+            this.gameObject.GetComponent<Player>().TakeDamage(damage);
             mv.Knockback(knockback);
         }
     }
