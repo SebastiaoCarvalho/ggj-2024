@@ -6,7 +6,11 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     public float MoveSpeed = 1f;
+    public float Impulse = 4f;
+
     bool Moving = false;
+    bool Jumping = false;
+    bool IsGrounded = true;
     Vector2 Direction = Vector2.zero;
     Rigidbody rb;
 
@@ -33,7 +37,7 @@ public class Movement : MonoBehaviour
             Debug.Log(rb.velocity);
         }
         else
-            rb.velocity = Vector2.zero;
+            rb.velocity = new Vector2(0, rb.velocity.y);
     }
 
     public void Move(InputAction.CallbackContext context) {
@@ -42,5 +46,13 @@ public class Movement : MonoBehaviour
         Moving = true;
         Direction = context.ReadValue<Vector2>();
         Debug.Log(Direction);
+    }
+
+    public void Jump(InputAction.CallbackContext context) {
+        if (context.canceled) Jumping = false;
+        if (!context.started) return;
+        Jumping = true;
+        if (IsGrounded)
+            rb.velocity = new Vector2(rb.velocity.x, Impulse);
     }
 }
