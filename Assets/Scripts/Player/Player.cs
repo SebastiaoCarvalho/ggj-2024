@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI liveText;
+    
+    public Image healthBar;
     private float _hp = 0f;
+    private float _maxHealth = 100f;
     private int _lives = 3;
+    private float _lerpSpeed;
 
     public int Lives {
         get { return _lives; }
@@ -21,8 +28,29 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        liveText.text = "x" + _lives;
+        if (_hp > _maxHealth) _hp = _maxHealth;
+
+        _lerpSpeed = 3f * Time.deltaTime;
+
+        HealthBarFiller();
+        ColorChanger();
     }
+
+
+    public void HealthBarFiller()
+    {
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, _hp / _maxHealth, _lerpSpeed);
+    }
+
+    public void ColorChanger()
+    {
+        Color _healthColor = Color.Lerp(Color.red, Color.green, (_hp / _maxHealth));
+
+        healthBar.color =_healthColor;
+
+    }
+
 
     public void TakeDamage(float damage) {
         _hp += damage;
