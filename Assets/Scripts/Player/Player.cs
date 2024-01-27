@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     
     public Image healthBar;
     private float _hp = 0f;
-    private float _maxHealth = 100f;
+    private float _maxHealth = 10f;
     private int _lives = 3;
     private float _lerpSpeed;
 
@@ -44,12 +44,12 @@ public class Player : MonoBehaviour
 
     public void HealthBarFiller()
     {
-        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, _hp / _maxHealth, _lerpSpeed);
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, 1 - (_hp / _maxHealth), _lerpSpeed);
     }
 
     public void ColorChanger()
     {
-        Color _healthColor = Color.Lerp(Color.red, Color.green, (_hp / _maxHealth));
+        Color _healthColor = Color.Lerp(Color.green, Color.red, (_hp / _maxHealth));
 
         healthBar.color =_healthColor;
 
