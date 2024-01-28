@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - Player1
   - Player2
+  - Audio
   layers:
   - Default
   - TransparentFX
