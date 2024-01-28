@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     GameObject[] _players = new GameObject[2];
     GameObject[] _floor;
     
+    [SerializeField] private GameObject _endScreen;
+    [SerializeField] private GameObject _endScreen1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +26,17 @@ public class GameManager : MonoBehaviour
             if (playerScript.OutOfBounds()) {
                 if (playerScript.Lives > 1)
                     playerScript.Respawn();
-                else
-                    Debug.Log("Game Over");
+                else {
+                    if (player == _players[0]) {
+                        _endScreen.SetActive(true);
+                        Debug.Log("Game Over for Player 1");
+                    }
+                    else if (player == _players[1]) {
+                        _endScreen1.SetActive(true);
+                        Debug.Log("Game Over for Player 2");
+                    }
+                }
             }
-        }
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Attack");
         foreach (GameObject projectile in projectiles) {
             float width = 17.5f;
@@ -34,6 +44,7 @@ public class GameManager : MonoBehaviour
             float endX = _floor[0].transform.position.x + width;
             if (projectile.transform.position.x < startX || projectile.transform.position.x >  endX)
                 Destroy(projectile);
+        }
         }
     }
 }

@@ -32,8 +32,8 @@ public class Abilities : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         mv = GetComponent<Movement>();
         damageable = GetComponent<Damageable>();
-        PunchAttack = transform.GetChild(0).GetComponent<Attack>();
-        DashAttack = transform.GetChild(1).GetComponent<Attack>();
+        /* PunchAttack = transform.GetChild(0).GetComponent<Attack>();
+        DashAttack = transform.GetChild(1).GetComponent<Attack>(); */
     }
 
     // Start is called before the first frame update
