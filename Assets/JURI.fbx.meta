@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: CURTAINS BLUE
-    second: {fileID: 2100000, guid: 49702206c7249e941aa89a1df8523556, type: 2}
+    second: {fileID: 2100000, guid: 8103ebbf29ed827448f5fef4ae4f2ae9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
