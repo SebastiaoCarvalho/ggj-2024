@@ -19,6 +19,8 @@ public class Movement : MonoBehaviour
 
     public bool IsKnockbacked { get; private set; }
 
+    public Vector3 Target;
+    public Animator animator;
 
     private void Awake()
     {
@@ -29,13 +31,13 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetNewTarget(new Vector3(FacingDirection * 1000, transform.position.y, transform.position.z));
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Count" + rbList.Count);
+        //Debug.Log("Count" + rbList.Count);
     }
 
     void addRigidBodyToList(GameObject obj) {
@@ -49,10 +51,16 @@ public class Movement : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (ab.Dashing)
-            rbList.ForEach(rb => rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y));
-        else if (Moving)  {
-            rbList.ForEach(rb => rb.velocity = new Vector2(MoveSpeed * Direction.x, rb.velocity.y));
+        if (ab.Dashing) {
+            Vector3 direction = Target - transform.position;
+            Debug.Log(direction);
+            transform.Translate(direction.normalized * ab.DashSpeed * Time.deltaTime, Space.World);
+        }
+        else if (Moving && !ab.AbilityBeingUsed())  {
+            Vector3 direction = Target - transform.position;
+            Debug.Log(direction);
+            transform.Translate(direction.normalized * MoveSpeed * Time.deltaTime, Space.World);
+            //rbList.ForEach(rb => rb.velocity = new Vector2(MoveSpeed * Direction.x, rb.velocity.y));
             /* Debug.Log(rb.velocity);*/
         }
         else if (IsKnockbacked) {
@@ -63,15 +71,24 @@ public class Movement : MonoBehaviour
     }
 
     public void Move(InputAction.CallbackContext context) {
-        if (context.canceled) Moving = false;
+        if (context.canceled) {
+            Moving = false;
+            animator.SetBool("Walking", false);
+        }
         if (!context.started) return;
         Moving = true;
+        animator.SetBool("Walking", true);
         Direction = context.ReadValue<Vector2>();
         if (Direction.x != FacingDirection) {
-            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            SetNewTarget(new Vector3(-1 * Target.x, Target.y, Target.z));
             FacingDirection = Direction.x;
         }
         Debug.Log(Direction);
+    }
+
+    void SetNewTarget(Vector3 newTarget) {
+        Target = newTarget;
+        transform.LookAt(Target);
     }
 
     public void Jump(InputAction.CallbackContext context) {

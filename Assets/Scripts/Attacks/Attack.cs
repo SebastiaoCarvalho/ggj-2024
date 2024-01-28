@@ -32,7 +32,9 @@ public class Attack : MonoBehaviour
 
     private void OnTriggerStay(Collider collision) {
         if (_attackCoolDown > 0) return;
+        Debug.Log(collision.gameObject.CompareTag("Player"));
         if (Attacking && collision.gameObject.CompareTag("Player")) {
+            Debug.Log("Collision");
             Damageable damageable = collision.gameObject.GetComponent<Damageable>();
 
             if (damageable != null) {

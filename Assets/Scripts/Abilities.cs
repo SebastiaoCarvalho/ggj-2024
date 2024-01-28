@@ -7,7 +7,7 @@ public class Abilities : MonoBehaviour
 {
     public float DashCooldown = 5.0f;
     public float CurrentDashCooldown = 0;
-    public float DashImpulse = 20f;
+    public float DashSpeed = 10f;
     public float ProjectileCooldown = 0.5f;
     public float CurrentProjectileCooldown = 0;
 
@@ -32,8 +32,8 @@ public class Abilities : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         mv = GetComponent<Movement>();
         damageable = GetComponent<Damageable>();
-        /* PunchAttack = transform.GetChild(0).GetComponent<Attack>();
-        DashAttack = transform.GetChild(1).GetComponent<Attack>(); */
+        PunchAttack = transform.GetChild(0).GetComponent<Attack>();
+        DashAttack = transform.GetChild(1).GetComponent<Attack>();
     }
 
     // Start is called before the first frame update
@@ -63,9 +63,11 @@ public class Abilities : MonoBehaviour
         if (context.canceled) {
             Blocking = false;
             animator.SetBool("Squating", false);
+            transform.LookAt(mv.Target);
         }
         if (!context.started || AbilityBeingUsed()) return;
         Blocking = true;
+        transform.LookAt(new Vector3(transform.position.x, transform.position.y, 10));
         animator.SetBool("Squating", true);
         Debug.Log("Block");
     }
@@ -74,18 +76,18 @@ public class Abilities : MonoBehaviour
         if (!context.started || AbilityBeingUsed() || CurrentDashCooldown > 0) return;
         Dashing = true;
         animator.SetBool("Dashing", true);
-        //DashAttack.Attacking = true;
+        DashAttack.Attacking = true;
         
         CurrentDashCooldown = DashCooldown;
-        //rb.velocity = new Vector2(DashImpulse * mv.FacingDirection, rb.velocity.y);
-        //Debug.Log(rb.velocity);
+        transform.LookAt(new Vector3(-mv.Target.x, transform.position.y, transform.position.z));
         Invoke("EndDash", 0.5f);
         Debug.Log("Dash");
     }
 
     private void EndDash() {
         Dashing = false;
-        //DashAttack.Attacking = false;
+        DashAttack.Attacking = false;
+        transform.LookAt(mv.Target);
         Debug.Log("End Dash");
         animator.SetBool("Dashing", false);
     }
@@ -93,11 +95,12 @@ public class Abilities : MonoBehaviour
     public void Projectile(InputAction.CallbackContext context) {
         if (context.canceled) {
             Projectiling = false;
+            transform.LookAt(mv.Target);
             animator.SetBool("Twerking", false);
         }
         if (!context.started || AbilityBeingUsed()) return;
         Projectiling = true;
-        Debug.Log(transform.rotation);
+        transform.LookAt(new Vector3(-mv.Target.x, transform.position.y, transform.position.z));
         animator.SetBool("Twerking", true);
         Debug.Log("Twerk");
     }
@@ -105,16 +108,18 @@ public class Abilities : MonoBehaviour
     public void Punch(InputAction.CallbackContext context) {
         if (!context.started || AbilityBeingUsed()) return;
         Punching = true;
-        //PunchAttack.Attacking = true;
+        PunchAttack.Attacking = true;
+        transform.LookAt(new Vector3(transform.position.x, transform.position.y, -10));
         animator.SetBool("Punching", true);
-        Invoke("EndPunch", 0.5f);
+        Invoke("EndPunch", 1f);
         Debug.Log("Punch");
     }
 
     private void EndPunch() {
-        //PunchAttack.Attacking = false;
+        PunchAttack.Attacking = false;
         animator.SetBool("Punching", false);
         Punching = false;
+        transform.LookAt(mv.Target);
         Debug.Log("End Punch");
     }
 
