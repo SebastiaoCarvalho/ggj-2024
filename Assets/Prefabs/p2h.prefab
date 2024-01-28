@@ -296,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5103779341883558187}
   m_Layer: 0
-  m_Name: p2
+  m_Name: p2h
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
