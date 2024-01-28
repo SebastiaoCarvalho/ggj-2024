@@ -51,8 +51,8 @@ public class Abilities : MonoBehaviour
         if (Projectiling && CurrentProjectileCooldown <= 0) {
             // throw projectile
             Vector3 offset = new Vector3(2 * mv.FacingDirection, 0, 0);
-            GameObject projectile = Instantiate(_projectilePrefab, transform.position + offset, Quaternion.identity);
-            projectile.GetComponent<Projectile>().Direction = new Vector3(mv.FacingDirection, 0, 0);
+            /* GameObject projectile = Instantiate(_projectilePrefab, transform.position + offset, Quaternion.identity);
+            projectile.GetComponent<Projectile>().Direction = new Vector3(mv.FacingDirection, 0, 0); */
             CurrentProjectileCooldown = ProjectileCooldown;
         }
         else if (CurrentProjectileCooldown > 0)
@@ -97,8 +97,13 @@ public class Abilities : MonoBehaviour
             Projectiling = false;
             transform.LookAt(mv.Target);
             animator.SetBool("Twerking", false);
+            transform.GetChild(4).transform.Translate(new Vector3(-.0f, .4f, .2f));
         }
         if (!context.started || AbilityBeingUsed()) return;
+        if (!Projectiling) {
+            Debug.Log(transform.GetChild(4).name);
+            transform.GetChild(4).transform.Translate(new Vector3(.0f, -.4f, -.2f));
+        }
         Projectiling = true;
         transform.LookAt(new Vector3(-mv.Target.x, transform.position.y, transform.position.z));
         animator.SetBool("Twerking", true);
@@ -109,7 +114,7 @@ public class Abilities : MonoBehaviour
         if (!context.started || AbilityBeingUsed()) return;
         Punching = true;
         PunchAttack.Attacking = true;
-        transform.LookAt(new Vector3(transform.position.x, transform.position.y, -10));
+        transform.LookAt(new Vector3(transform.position.x, transform.position.y, -10 * mv.FacingDirection));
         animator.SetBool("Punching", true);
         Invoke("EndPunch", 1f);
         Debug.Log("Punch");

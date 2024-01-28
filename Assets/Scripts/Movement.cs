@@ -25,7 +25,7 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         addRigidBodyToList(this.gameObject);
-        ab =  GetComponent<Abilities>();
+        ab = GetComponent<Abilities>();
     }
 
     // Start is called before the first frame update
@@ -112,8 +112,8 @@ public class Movement : MonoBehaviour
 
     public void Knockback(Vector2 knockback) {
         CanMove = false;
-        rbList.ForEach(rb => rb.velocity = new Vector2(knockback.x, knockback.y));
-        transform.Translate(new Vector3(knockback.x, knockback.y, 0) * Time.deltaTime, Space.World);
+        rbList.ForEach(rb => rb.velocity = new Vector2(knockback.x, 0));
+        transform.Translate(new Vector3(knockback.x, 0, 0) * Time.deltaTime, Space.World);
         IsKnockbacked = true;
         Invoke("EndKnockback", 0.3f);
         Debug.Log("End knockback");

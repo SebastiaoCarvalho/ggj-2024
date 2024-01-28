@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     public int Damage = 1;
-    public float KnockbackStrengthX = 1f;
+    public float KnockbackStrengthX = 5f;
     public float KnockbackStrengthY = 1f;
     public bool Attacking = false;
     private float _attackCoolDown = 0;
@@ -40,7 +40,7 @@ public class Attack : MonoBehaviour
 
     private void GetFatter() {
         // get object to scale 
-        Transform objectTransform = this.transform.parent.GetChild(1); // get ass
+        Transform objectTransform = this.transform.parent.GetChild(4);
         objectTransform.localScale = new Vector3(objectTransform.localScale.x * 1.1f, objectTransform.localScale.y * 1.1f, objectTransform.localScale.z * 1.1f);
     }
 
@@ -54,6 +54,8 @@ public class Attack : MonoBehaviour
 
     private void CollisionHandling(Collider collision) {
         if (target == null) return;
+        if (gameObject.name == "Punch") 
+            Debug.Log("Punch collision");
         /* if (!GetComponent<Animator>().GetBool("Punching")) return; */
         /* Debug.Log(collision.gameObject.CompareTag("Player")); */
         /* Debug.Log("here"); */
@@ -68,6 +70,7 @@ public class Attack : MonoBehaviour
                 Abilities ab = transform.parent.GetComponent<Abilities>();
                 if (ab != null && ab.Punching) {
                     GetFatter();
+                    Debug.Log("Fatter");
                 }
                 _attackCoolDown = 0.3f;
                 Debug.Log("Damage");
