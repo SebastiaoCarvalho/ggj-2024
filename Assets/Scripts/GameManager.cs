@@ -9,8 +9,14 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private GameObject _endScreen1;
+    AudioManager audioManager;
 
     // Start is called before the first frame update
+    public void Awake()
+    {
+        audioManager = GameObject.Find("Audio").GetComponent<AudioManager>();
+    }
+
     void Start()
     {
         _players[0] = GameObject.Find("Player1").transform.GetChild(0).gameObject;

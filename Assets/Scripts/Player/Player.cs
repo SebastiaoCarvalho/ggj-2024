@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI liveText;
+    AudioManager audioManager;
     
     public Image healthBar;
     private float _hp = 0f;
@@ -26,11 +27,12 @@ public class Player : MonoBehaviour
         get { return _assSize; }
     }
     private Vector3 _startPosition;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         _startPosition = transform.position;
+        audioManager = GameObject.Find("Audio").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -63,6 +65,16 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage) {
         _hp += damage;
         Debug.Log("Player HP: " + _hp);
+        
+        // laugh audio if hit
+        float laughterProbability = 0.5f;
+        float randomValue = Random.Range(0f, 1f);
+
+        if (randomValue < laughterProbability) {
+            int randomLaughIndex = Random.Range(0, 2);
+            AudioClip selectedLaugh = (randomLaughIndex == 0) ? audioManager.laugh1 : audioManager.laugh2;
+            audioManager.PlaySFX(selectedLaugh);
+        }
     }
 
     public bool OutOfBounds() {
