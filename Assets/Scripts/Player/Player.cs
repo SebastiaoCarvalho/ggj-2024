@@ -78,12 +78,13 @@ public class Player : MonoBehaviour
     }
 
     public bool OutOfBounds() {
-        return transform.position.y < -10;
+        return transform.GetChild(2).transform.position.y < -10f;
     }
 
     public void Respawn() {
         _lives--;
         transform.position = _startPosition;
+        transform.GetComponent<Animator>().enabled = true;
         _hp = 0f;
         GetComponent<Damageable>().HP = 0f;
     }
