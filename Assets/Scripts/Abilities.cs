@@ -25,6 +25,8 @@ public class Abilities : MonoBehaviour
     Attack DashAttack;
     Attack PunchAttack;
 
+    public Animator animator;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -58,49 +60,60 @@ public class Abilities : MonoBehaviour
     }
 
     public void Block(InputAction.CallbackContext context) {
-        if (context.canceled) Blocking = false;
+        if (context.canceled) {
+            Blocking = false;
+            animator.SetBool("Squating", false);
+        }
         if (!context.started || AbilityBeingUsed()) return;
         Blocking = true;
+        animator.SetBool("Squating", true);
         Debug.Log("Block");
     }
 
     public void Dash(InputAction.CallbackContext context) {
         if (!context.started || AbilityBeingUsed() || CurrentDashCooldown > 0) return;
         Dashing = true;
-        DashAttack.Attacking = true;
+        animator.SetBool("Dashing", true);
+        //DashAttack.Attacking = true;
         
         CurrentDashCooldown = DashCooldown;
-        rb.velocity = new Vector2(DashImpulse * mv.FacingDirection, rb.velocity.y);
-        Debug.Log(rb.velocity);
+        //rb.velocity = new Vector2(DashImpulse * mv.FacingDirection, rb.velocity.y);
+        //Debug.Log(rb.velocity);
         Invoke("EndDash", 0.5f);
         Debug.Log("Dash");
     }
 
     private void EndDash() {
         Dashing = false;
-        DashAttack.Attacking = false;
+        //DashAttack.Attacking = false;
         Debug.Log("End Dash");
+        animator.SetBool("Dashing", false);
     }
 
     public void Projectile(InputAction.CallbackContext context) {
-        if (context.canceled) Projectiling = false;
+        if (context.canceled) {
+            Projectiling = false;
+            animator.SetBool("Twerking", false);
+        }
         if (!context.started || AbilityBeingUsed()) return;
         Projectiling = true;
         Debug.Log(transform.rotation);
+        animator.SetBool("Twerking", true);
         Debug.Log("Twerk");
     }
 
     public void Punch(InputAction.CallbackContext context) {
         if (!context.started || AbilityBeingUsed()) return;
         Punching = true;
-        PunchAttack.Attacking = true;
-
-        Invoke("EndPunch", 0.3f);
+        //PunchAttack.Attacking = true;
+        animator.SetBool("Punching", true);
+        Invoke("EndPunch", 0.5f);
         Debug.Log("Punch");
     }
 
     private void EndPunch() {
-        PunchAttack.Attacking = false;
+        //PunchAttack.Attacking = false;
+        animator.SetBool("Punching", false);
         Punching = false;
         Debug.Log("End Punch");
     }

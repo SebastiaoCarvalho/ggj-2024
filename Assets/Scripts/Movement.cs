@@ -14,8 +14,8 @@ public class Movement : MonoBehaviour
     bool CanMove = true;
     public float FacingDirection = 1f;
     Vector2 Direction = Vector2.zero;
-    Rigidbody[] rb;
-    Abilities[] ab;
+    Rigidbody rb;
+    Abilities ab;
 
     public bool IsKnockbacked { get; private set; }
 
@@ -39,17 +39,17 @@ public class Movement : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (ab.Dashing)
+        /*if (ab.Dashing)
             rb.velocity = rb.velocity;
         else if (Moving)  {
             rb.velocity = new Vector2(Direction.x * MoveSpeed, rb.velocity.y);
-            /* Debug.Log(rb.velocity); */
+            /* Debug.Log(rb.velocity); 
         }
         else if (IsKnockbacked) {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
         else if (CanMove)
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(0, rb.velocity.y);*/
     }
 
     public void Move(InputAction.CallbackContext context) {
