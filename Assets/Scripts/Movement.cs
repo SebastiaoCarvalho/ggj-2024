@@ -25,7 +25,7 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         addRigidBodyToList(this.gameObject);
-        ab = GetComponent<Abilities>();
+        ab =  GetComponent<Abilities>();
     }
 
     // Start is called before the first frame update
@@ -38,6 +38,17 @@ public class Movement : MonoBehaviour
     void Update()
     {
         //Debug.Log("Count" + rbList.Count);
+        GameObject floor = GameObject.FindGameObjectWithTag("Floor");
+        if (GetComponent<Collider>().bounds.Intersects(floor.GetComponent<Collider>().bounds))
+            IsGrounded = true;
+        else
+            IsGrounded = false;
+        if (!IsGrounded) {
+            GetComponent<Animator>().enabled = false;
+        }
+        else {
+            GetComponent<Animator>().enabled = true;
+        }
     }
 
     void addRigidBodyToList(GameObject obj) {
@@ -53,12 +64,12 @@ public class Movement : MonoBehaviour
     private void FixedUpdate() {
         if (ab.Dashing) {
             Vector3 direction = Target - transform.position;
-            Debug.Log(direction);
+            /* Debug.Log(direction); */
             transform.Translate(direction.normalized * ab.DashSpeed * Time.deltaTime, Space.World);
         }
         else if (Moving && !ab.AbilityBeingUsed())  {
             Vector3 direction = Target - transform.position;
-            Debug.Log(direction);
+            /* Debug.Log(direction); */
             transform.Translate(direction.normalized * MoveSpeed * Time.deltaTime, Space.World);
             //rbList.ForEach(rb => rb.velocity = new Vector2(MoveSpeed * Direction.x, rb.velocity.y));
             /* Debug.Log(rb.velocity);*/
@@ -102,6 +113,7 @@ public class Movement : MonoBehaviour
     public void Knockback(Vector2 knockback) {
         CanMove = false;
         rbList.ForEach(rb => rb.velocity = new Vector2(knockback.x, knockback.y));
+        transform.Translate(new Vector3(knockback.x, knockback.y, 0) * Time.deltaTime, Space.World);
         IsKnockbacked = true;
         Invoke("EndKnockback", 0.3f);
         Debug.Log("End knockback");

@@ -15,9 +15,9 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         //_players[0] = GameObject.Find("Player1");
-        _players[0] = GameObject.Find("Player1").transform.GetChild(0).gameObject;
+        _players[0] = GameObject.Find("P1").transform.GetChild(0).gameObject;
         //_players[1] = GameObject.Find("Player2");
-        _players[1] = GameObject.Find("Player2").transform.GetChild(0).gameObject;
+        _players[1] = GameObject.Find("P1 1").transform.GetChild(0).gameObject;
         _fixedY = this.gameObject.transform.position.y;
         Vector3 midpoint = (_players[0].transform.position + _players[1].transform.position) / 2;
         _startDiagonal = Math.Sqrt(Math.Pow(_players[0].transform.position.x - midpoint.x, 2) + Math.Pow(_players[0].transform.position.y - midpoint.y, 2));
