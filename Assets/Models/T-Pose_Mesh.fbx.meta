@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mat_Face_01
-    second: {fileID: 2100000, guid: 88972baca307e534e97baadbf5e4c6e3, type: 2}
+    second: {fileID: 2100000, guid: 2804f22d960c2374d899621941f89112, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mat_Robot_Metal_01
-    second: {fileID: 2100000, guid: 9afee5ecc78e41140bc284814b91a4b4, type: 2}
+    second: {fileID: 2100000, guid: df4762abe1db2db4fa7739032b04f69a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mat_Robot_Rubber
-    second: {fileID: 2100000, guid: 07fcc2aeb3ec019469cf276e28161d69, type: 2}
+    second: {fileID: 2100000, guid: 90f84d0c21b362e44a6f62e2b2eca898, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: standardSurface2
-    second: {fileID: 2100000, guid: acc21a9d99efe2a49af22ae5df04429a, type: 2}
+    second: {fileID: 2100000, guid: df4762abe1db2db4fa7739032b04f69a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
