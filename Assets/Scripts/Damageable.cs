@@ -5,10 +5,15 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     float Health = 0f;
+    private bool _isDamageable = true;
 
     public float HP {
         get { return Health; }
         set { Health = value; }
+    }
+
+    public bool IsDamageable {
+        get { return _isDamageable; }
     }
     Movement mv;
 
@@ -34,5 +39,11 @@ public class Damageable : MonoBehaviour
             this.gameObject.GetComponent<Player>().TakeDamage(damage);
             mv.Knockback(knockback);
         }
+        _isDamageable = false;
+        Invoke("ResetDamageable", 1f);
+    }
+
+    private void ResetDamageable() {
+        _isDamageable = true;
     }
 }
